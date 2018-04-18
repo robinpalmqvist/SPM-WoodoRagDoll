@@ -7,10 +7,11 @@ public class PlayerController : Controller {
 
     public CharacterController controller;
     public Rigidbody rb;
+    private float _force = 20;
 
     [Range(0f, 1f)] public float InputRequiredToMove = 0.3f;
 
-    public Vector3 Input
+   /* public Vector3 Input
     {
         get
         {
@@ -21,11 +22,13 @@ public class PlayerController : Controller {
             //Kan (borde?) normaliseras
         }
     }
-
+    */
 
 	private void Update()
 	{
-        //Vector3 move = new Vector3(Input.GetAxis("Vertical"), -5f, Input.GetAxis("Horizontal"));
+
+        Vector3 move = new Vector3(Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
+        rb.AddForce(move * _force);
 
 	}
 
