@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{94D40821-4997-770C-C952-289052EEEE77}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Controller.cs">
+    <Files>
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="11" Column="59" />
+      <File FileName="Assets/Scripts/Controller.cs" Line="13" Column="5" />
+      <File FileName="Assets/Scripts/State.cs" Line="7" Column="21" />
+      <File FileName="Assets/Scripts/GroundState.cs" Line="25" Column="9" />
+      <File FileName="Assets/Scripts/Utility/MinMaxFloat.cs" Line="19" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.WoodoRagDolls PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

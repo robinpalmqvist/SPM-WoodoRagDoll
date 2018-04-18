@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class State : ScriptableObject {
-    public Controller Controller;
+    
+    [HideInInspector]public Controller Controller;
 
     public abstract void Update();
     public abstract void Initialize(Controller owner);
