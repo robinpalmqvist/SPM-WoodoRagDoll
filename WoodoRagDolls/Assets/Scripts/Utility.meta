@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:WoodoRagDolls/Assets/Scripts/Utility.meta
 guid: 6c64b36a202464dcda7b63e70e008dda
 folderAsset: yes
 timeCreated: 1524061832
+=======
+guid: 785331a7bba59574283a6273bc7061b7
+folderAsset: yes
+timeCreated: 1524061713
+>>>>>>> 5330996f8ba166910a0f527b6e6a03cb3953ec78:WoodoRagDolls/Assets/Materials.meta
 licenseType: Free
 DefaultImporter:
   externalObjects: {}
