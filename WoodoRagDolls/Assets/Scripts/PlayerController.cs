@@ -20,7 +20,7 @@ public class PlayerController : Controller {
             float y = Camera.main.transform.rotation.eulerAngles.y;
             input = Quaternion.Euler(0f, y, 0f) * input;
             return input.normalized;
-            //Kan (borde?) normaliseras
+            
         }
     }
 
