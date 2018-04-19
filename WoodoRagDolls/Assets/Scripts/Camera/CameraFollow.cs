@@ -65,10 +65,7 @@ public class CameraFollow : MonoBehaviour
 
     private void UpdateScreenBoundaries()
     {
-        Vector3 pos = _camera.WorldToViewportPoint(Targets[0].position);
-        pos.x = Mathf.Clamp(pos.x, 0.1f, 0.9f);
-        pos.z = Mathf.Clamp(pos.z, 0.1f, 0.9f);
-        Targets[0].position = _camera.ViewportToWorldPoint(pos);
+      
 
 
 
