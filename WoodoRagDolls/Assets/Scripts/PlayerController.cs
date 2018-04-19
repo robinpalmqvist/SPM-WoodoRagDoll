@@ -6,7 +6,7 @@ using System;
 public class PlayerController : Controller {
 
     public CharacterController controller;
-    public Transform transform;
+    public Transform _transform;
    // public Rigidbody rb;
     //private float _force = 20;
 
