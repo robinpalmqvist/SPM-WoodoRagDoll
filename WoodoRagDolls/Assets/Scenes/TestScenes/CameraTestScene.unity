@@ -221,7 +221,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 960356882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 649f2f660b608774c820b994009a7e39, type: 3}
   m_Name: 
@@ -230,7 +230,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f786f29325e4a0a8f3c7e5beb72a88, type: 2}
   CurrentState: {fileID: 0}
   controller: {fileID: 960356883}
-  transform: {fileID: 960356888}
+  _transform: {fileID: 0}
   InputRequiredToMove: 0.3
 --- !u!23 &960356885
 MeshRenderer:
@@ -570,7 +570,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f786f29325e4a0a8f3c7e5beb72a88, type: 2}
   CurrentState: {fileID: 0}
   controller: {fileID: 1447817115}
-  transform: {fileID: 1447817120}
+  _transform: {fileID: 0}
   InputRequiredToMove: 0.3
 --- !u!23 &1447817117
 MeshRenderer:
