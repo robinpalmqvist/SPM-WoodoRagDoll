@@ -15,8 +15,8 @@ public class PlayerController : Controller {
         get
         {
             Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
-            float y = Camera.main.transform.rotation.eulerAngles.y;
-            input = Quaternion.Euler(0f, y, 0f) * input;
+            //float y = Camera.main.transform.rotation.eulerAngles.y;
+            //input = Quaternion.Euler(0f, y, 0f) * input;
             return input;
             //Kan (borde?) normaliseras
         }
@@ -25,7 +25,7 @@ public class PlayerController : Controller {
 
 	private void Update()
 	{
-        //Vector3 move = new Vector3(Input.GetAxis("Vertical"), -5f, Input.GetAxis("Horizontal"));
+        rb.AddForce(Input * 20f);
 
 	}
 

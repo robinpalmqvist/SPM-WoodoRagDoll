@@ -341,13 +341,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1407204673}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.19277096, y: -0, z: -0, w: 0.9812438}
   m_LocalPosition: {x: 0, y: 0.65, z: 3.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8.25837, y: 6.291374, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 22.229002, y: 0, z: 0}
 --- !u!1 &1638879828
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +462,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &2024812639
 MonoBehaviour:
@@ -479,7 +479,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21f786f29325e4a0a8f3c7e5beb72a88, type: 2}
   CurrentState: {fileID: 0}
   controller: {fileID: 0}
-  rb: {fileID: 0}
+  rb: {fileID: 2024812638}
   InputRequiredToMove: 0.3
 --- !u!23 &2024812640
 MeshRenderer:
