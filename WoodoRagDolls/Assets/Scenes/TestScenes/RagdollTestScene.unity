@@ -885,7 +885,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 928753728}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01140213, y: 3.5, z: -0.041999817}
+  m_LocalPosition: {x: 0.01140213, y: 3.524, z: -0.041999817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1656281829}
@@ -1640,7 +1640,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1656281829
 Transform:
   m_ObjectHideFlags: 0
@@ -1817,6 +1817,8 @@ GameObject:
   - component: {fileID: 1944232942}
   - component: {fileID: 1944232944}
   - component: {fileID: 1944232943}
+  - component: {fileID: 1944232947}
+  - component: {fileID: 1944232946}
   m_Layer: 8
   m_Name: Hip
   m_TagString: Untagged
@@ -1849,11 +1851,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 1944232941}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.14
   m_Height: 2.38
   m_Direction: 0
-  m_Center: {x: 0.02, y: 0, z: 0}
+  m_Center: {x: -0.25, y: 0, z: 0}
 --- !u!65 &1944232944
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1886,6 +1888,40 @@ Transform:
   m_Father: {fileID: 928753729}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &1944232946
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1944232941}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1944232947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1944232941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649f2f660b608774c820b994009a7e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _states:
+  - {fileID: 11400000, guid: 21f786f29325e4a0a8f3c7e5beb72a88, type: 2}
+  CurrentState: {fileID: 0}
+  controller: {fileID: 1944232946}
+  rb: {fileID: 1944232942}
+  InputRequiredToMove: 0.3
 --- !u!1 &1955993405
 GameObject:
   m_ObjectHideFlags: 0
