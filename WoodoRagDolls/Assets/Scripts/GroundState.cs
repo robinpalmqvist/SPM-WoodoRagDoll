@@ -57,15 +57,19 @@ public class GroundState : State {
     {
         Vector3 input = _controller.Input;
         Debug.Log(input);
-        _controller.controller.Move(input * Time.deltaTime * MoveSpeed);
+        
         
         Vector3 cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0.0f;
-
+         
 
         float angle = Vector3.SignedAngle(input, cameraForward, Vector3.up);
+        if(input.magnitude > Mathf.Epsilon) { 
+        _controller.transform.forward = input;
+        }
+        _controller.controller.Move(input * Time.deltaTime * MoveSpeed);
         Debug.Log(angle);
-        _controller.transform.rotation = Quaternion.Euler(0, -angle, 0);
+       // _controller.transform.rotation = Quaternion.Euler(0, -angle, 0);
         //Vector3 delta = Quaternion.AngleAxis(angle, -_groundNormal) * ForwardAlongGround * MoveSpeed * Time.deltaTime;
         
         //Debug.Log(angle);
