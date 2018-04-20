@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Name: GroundState
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
-  MoveSpeed: 10
+  MoveSpeed: 100
+  Deacceleration: 0.9
+  MaxSpeed: 5
