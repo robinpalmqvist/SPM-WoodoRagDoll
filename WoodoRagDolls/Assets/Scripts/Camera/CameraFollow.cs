@@ -13,6 +13,8 @@ public class CameraFollow : MonoBehaviour
     public MinMaxFloat Zoom;
     public float ZoomSmoothing;
 
+    public Material BlendMaterial;
+
    
 
     public GameObject TestPrefab;
@@ -28,6 +30,7 @@ public class CameraFollow : MonoBehaviour
     private float _greatestDistance;
     private float _currentZoomVelocity;
     Quaternion rotation;
+    Quaternion cameraRot;
 
    
 
@@ -49,13 +52,14 @@ public class CameraFollow : MonoBehaviour
         transform.position = _centerPosition;
 
         
-        float y = Camera.main.transform.rotation.eulerAngles.y;
-        rotation = Quaternion.Euler(0, y, 0);
+        float y = transform.rotation.eulerAngles.y;
+        rotation = Quaternion.Euler(0, -y, 0);
+        cameraRot = Quaternion.Euler(_camera.transform.eulerAngles.x, 0, 0);
 
 
 
 
-        //GameObject.Instantiate(TestPrefab, currentScreenMax, Quaternion.identity, null);
+        GameObject.Instantiate(TestPrefab, rotation * Vector3.one, Quaternion.identity, null);
 
 
 
@@ -63,12 +67,17 @@ public class CameraFollow : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
+
+        float y = transform.rotation.eulerAngles.y;
+        rotation = Quaternion.Euler(0, -y, 0);
         UpdateScreenBoundaries();
         _greatestDistance = FindGreatestDistanceBetweenPlayers();
-        Debug.Log(_greatestDistance);
+        BlendMaterial.SetFloat("_LerpValue", 1+ Mathf.Sin(Time.time));
+        
+       
         
 
 
@@ -90,7 +99,9 @@ public class CameraFollow : MonoBehaviour
     private void UpdateScreenBoundaries()
     {
 
-
+        RaycastHit hit;
+        Vector3 direction = (Targets[0].position - _camera.transform.position).normalized;
+        Physics.Raycast(_camera.transform.position, direction, out hit, Mathf.Infinity);
 
 
 
