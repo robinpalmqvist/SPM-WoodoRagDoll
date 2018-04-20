@@ -25,7 +25,6 @@ public class Controller : MonoBehaviour {
 
             if (CurrentState == null)
             {
-
                 CurrentState = instance;
                 CurrentState.Enter();
             }
