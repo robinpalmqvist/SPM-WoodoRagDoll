@@ -57,7 +57,7 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				// sample the texture
-				//float transition = _DissolveY - i.worldPos.y;
+				float transition = _DissolveY - i.worldPos.y;
 				clip(_StartingY + (transition + (tex2D(_DissolveTex, i.uv)) * _DissolveSize));
 				fixed4 col = tex2D(_MainTex, i.uv);
 				
