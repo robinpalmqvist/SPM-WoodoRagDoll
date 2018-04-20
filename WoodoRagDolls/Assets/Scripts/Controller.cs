@@ -40,6 +40,14 @@ public class Controller : MonoBehaviour {
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (CurrentState != null)
+        {
+            CurrentState.FixedUpdate();
+        }
+    }
+
     public T GetState<T>()
     {
         Type type = typeof(T);
