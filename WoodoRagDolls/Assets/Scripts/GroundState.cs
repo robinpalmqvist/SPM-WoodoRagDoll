@@ -41,9 +41,9 @@ public class GroundState : State {
 
 	public override void Enter()
 	{
-       
-        
-	}
+        Debug.Log("GroundState");
+
+    }
 
 	public override void Exit()
 	{
@@ -52,24 +52,27 @@ public class GroundState : State {
 
 	public override void Update()
 	{
+        
+        RaycastHit[] hits =_controller.DetectHits();
+        if(hits.Length == 0)
+        {
+            _controller.TransitionTo<AirState>();
+            return;
+        }
+
+    }
+
+    public override void FixedUpdate(){
+
         UpdateJump();
         UpdateMovement();
-       
 
     }
 
     private void UpdateMovement()
     {
         Vector3 input = _controller.Input;
-        //Debug.Log(input);
-
-
-        //Vector3 cameraForward = Camera.main.transform.forward;
-        //cameraForward.y = 0.0f;
         
-        
-
-        //float angle = Vector3.SignedAngle(input, cameraForward, Vector3.up);
         if (input.magnitude > Mathf.Epsilon)
         {
             //_controller.rb.rotation = Quaternion.Euler(0f, input.y, 0f);
@@ -99,10 +102,19 @@ public class GroundState : State {
 
     private void UpdateJump()
     {
-        if (Input.GetButtonDown("XboxJumpA"))
+        if (Input.GetButtonDown("XboxJumpRightBumper") || Input.GetButtonDown("Jump"))
         {
-            Debug.Log("A button");
-            _controller.rb.AddForce(0f, Jump * 20f, 0f, ForceMode.Impulse);
+            _controller.SetRigidYVelocity(0f);
+
+
+            Debug.Log(_controller.rb.velocity);
+
+            _controller.rb.AddForce(0f, Jump * 2, 0f, ForceMode.VelocityChange);
+
+            //_controller.rb.velocity = _controller.rb.velocity * Deacceleration;
+
+            _controller.GetState<AirState>().CanCancelJump = true;
+            _controller.TransitionTo<AirState>();
         }
     }
 
