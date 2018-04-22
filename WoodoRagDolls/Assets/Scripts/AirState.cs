@@ -29,16 +29,16 @@ public class AirState : State {
     }
     public override void Update()
     {
-        //Debug.Log(_controller.rb.velocity);
-
+        
         UpdateGroundCheck();
-        UpdateMovement();
-        UpdateFastFalling();
+
     }
 
     public override void FixedUpdate()
     {
         CancelJump();
+        UpdateMovement();
+        UpdateFastFalling();
     }
 
     private void UpdateGroundCheck()
@@ -76,7 +76,11 @@ public class AirState : State {
     private void UpdateFastFalling()
     {
 
-        if (_controller.rb.velocity.y < -2)
+        //float multiplier = _controller.rb.velocity.y > 0.0f ? 1.0f : FastFall.y;
+        //_controller.rb.velocity += Vector3.down * multiplier * Time.deltaTime;
+
+
+        if (_controller.rb.velocity.y < 0f)
         {
             _controller.rb.AddForce(FastFall, ForceMode.Impulse);
         }
@@ -85,19 +89,21 @@ public class AirState : State {
 
     private void CancelJump()
     {
+        
+        if (Input.GetButton("XboxJumpRightBumper") || Input.GetButton("Jump")){
+            return;
+        }
+
         if (_controller.rb.velocity.y < Mathf.Epsilon)
         {
             CanCancelJump = false;
         }
 
-        if (Input.GetButton("XboxJumpRightBumper")){
-            return;
-        }
-
         if (CanCancelJump)
         {
-            Debug.Log("Inne");
+            Debug.Log("CancelJump");
             _controller.rb.AddForce(FastFall * 20, ForceMode.Impulse);
+            CanCancelJump = false;
         }
 
     }

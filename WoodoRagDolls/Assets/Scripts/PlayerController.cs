@@ -11,6 +11,8 @@ public class PlayerController : Controller {
     public int CollisionLayers = ~(1 << 8);
     public float GroundCheckDistance = 0.3f;
 
+    private Rigidbody[] rigidbodyparts;
+
     private CapsuleCollider _collider;
     
     //private float _force = 20;
@@ -24,6 +26,8 @@ public class PlayerController : Controller {
 
             Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("LeftStickHorizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("LeftStickVertical"));
 
+            //Datorkontroll
+            //Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
             float y = Camera.main.transform.rotation.eulerAngles.y;
             input = Quaternion.Euler(0f, y, 0f) * input;
@@ -35,6 +39,8 @@ public class PlayerController : Controller {
     private void Start()
     {
         _collider = GetComponent<CapsuleCollider>();
+
+        rigidbodyparts = GameObject.Find("RagdollPrefab").GetComponentsInChildren<Rigidbody>();
     }
 
     public RaycastHit[] DetectHits()
@@ -58,5 +64,16 @@ public class PlayerController : Controller {
         //Debug.Log(groundHits.Length);
         
         return groundHits;
+    }
+
+    public void SetRigidYVelocity(float yVelocity){
+
+        foreach(Rigidbody r in rigidbodyparts){
+
+            Vector3 v = r.velocity;
+            v.y = yVelocity;
+            r.velocity = v;
+
+        }
     }
 }

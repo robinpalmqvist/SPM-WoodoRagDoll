@@ -52,14 +52,20 @@ public class GroundState : State {
 
 	public override void Update()
 	{
-        UpdateJump();
-        UpdateMovement();
+        
         RaycastHit[] hits =_controller.DetectHits();
         if(hits.Length == 0)
         {
             _controller.TransitionTo<AirState>();
             return;
         }
+
+    }
+
+    public override void FixedUpdate(){
+
+        UpdateJump();
+        UpdateMovement();
 
     }
 
@@ -96,16 +102,14 @@ public class GroundState : State {
 
     private void UpdateJump()
     {
-        if (Input.GetButtonDown("XboxJumpRightBumper"))
+        if (Input.GetButtonDown("XboxJumpRightBumper") || Input.GetButtonDown("Jump"))
         {
-            Vector3 v = _controller.rb.velocity;
-            v.y = 100f;
-            _controller.rb.velocity = v;
+            _controller.SetRigidYVelocity(0f);
 
 
             Debug.Log(_controller.rb.velocity);
 
-            //_controller.rb.AddForce(0f, Jump * 2, 0f, ForceMode.VelocityChange);
+            _controller.rb.AddForce(0f, Jump * 2, 0f, ForceMode.VelocityChange);
 
             //_controller.rb.velocity = _controller.rb.velocity * Deacceleration;
 
