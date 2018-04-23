@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Name: AirState
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
-  MoveSpeed: 100
+  MoveSpeed: 0
   AirDeacceleration: 0.1
   MaxSpeed: 5
   FastFall: {x: 0, y: -10, z: 0}
+  CanCancelJump: 0

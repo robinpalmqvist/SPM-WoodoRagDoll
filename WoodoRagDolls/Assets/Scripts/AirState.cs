@@ -61,7 +61,7 @@ public class AirState : State {
             //_controller.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             _controller.transform.forward = input;
             _controller.rb.AddForce(input * MoveSpeed, ForceMode.Acceleration);
-            _controller.rb.velocity = Vector3.ClampMagnitude(_controller.rb.velocity, MaxSpeed);
+            //_controller.rb.velocity = Vector3.ClampMagnitude(_controller.rb.velocity, MaxSpeed);
 
         }
         else
