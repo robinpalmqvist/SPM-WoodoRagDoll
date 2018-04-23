@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using System;
 
 public class PlayerController : Controller {
@@ -9,7 +10,7 @@ public class PlayerController : Controller {
     //public Transform _transform;
     public Rigidbody rb;
     public int CollisionLayers = ~(1 << 8);
-    public float GroundCheckDistance = 0.3f;
+    public float GroundCheckDistance = 0.05f;
 
     private Rigidbody[] rigidbodyparts;
 
@@ -54,7 +55,7 @@ public class PlayerController : Controller {
         test.y -= GroundCheckDistance;
         
 
-        RaycastHit[] groundHits = Physics.SphereCastAll(colliderHeight, _collider.radius, Vector3.down, GroundCheckDistance, CollisionLayers);
+        List<RaycastHit> groundHits = Physics.SphereCastAll(colliderHeight, _collider.radius, Vector3.down, GroundCheckDistance, CollisionLayers).ToList();
         //RaycastHit[] groundHits = Physics.CapsuleCastAll(colliderHeight, test, _collider.radius, Vector3.down, 50f, CollisionLayers);
 
         Debug.DrawLine(colliderHeight, test);
@@ -63,7 +64,7 @@ public class PlayerController : Controller {
 
         //Debug.Log(groundHits.Length);
         
-        return groundHits;
+        return groundHits.ToArray();
     }
 
     public void SetRigidYVelocity(float yVelocity){
