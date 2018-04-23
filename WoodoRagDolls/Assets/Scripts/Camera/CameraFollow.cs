@@ -16,12 +16,6 @@ public class CameraFollow : MonoBehaviour
     public Material AlwaysVisible;
 
 
-    [Header("Testing")]
-
-    public Vector3 ViewPortPoint;
-    public GameObject TestPrefab;
-    public bool Respawn;
-
     //Variables for Centering Camera
     private Vector3 _centerPosition;
     private Vector3 _currentVelocityTowardsCenter;
@@ -32,8 +26,7 @@ public class CameraFollow : MonoBehaviour
     private Bounds _bounds;
     private float _greatestDistance;
     private float _currentZoomVelocity;
-    Quaternion rotation;
-    Quaternion cameraRot;
+    
 
 
 
@@ -57,20 +50,6 @@ public class CameraFollow : MonoBehaviour
         transform.position = _centerPosition;
 
 
-        float y = transform.rotation.eulerAngles.y;
-        rotation = Quaternion.Euler(0, y, 0);
-        //Targets[0].position = rotation * Targets[0].position;
-
-
-
-
-
-        //GameObject.Instantiate(TestPrefab, _camera.ViewportToWorldPoint(ViewPortPoint), Quaternion.identity, null);
-
-
-
-
-
     }
 
 
@@ -78,7 +57,7 @@ public class CameraFollow : MonoBehaviour
     {
 
 
-        UpdateScreenBoundaries();
+        
         _greatestDistance = FindGreatestDistanceBetweenPlayers();
 
 
@@ -104,11 +83,7 @@ public class CameraFollow : MonoBehaviour
 
     private void UpdateScreenBoundaries()
     {
-
-        /* RaycastHit hit;
-         Vector3 direction = (Targets[0].position - _camera.transform.position).normalized;
-         Physics.Raycast(_camera.transform.position, direction, out hit, Mathf.Infinity);
-         */
+        
         for (int i = 0; i < Targets.Length; i++)
         {
             Vector3 playerInViewPortCoords = _camera.WorldToViewportPoint(Targets[i].position);
@@ -118,21 +93,6 @@ public class CameraFollow : MonoBehaviour
             Vector3 ClampedPos = _camera.ViewportToWorldPoint(new Vector3(x, z, playerInViewPortCoords.z));
             Targets[i].position = new Vector3(ClampedPos.x, Targets[0].position.y, ClampedPos.z);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
