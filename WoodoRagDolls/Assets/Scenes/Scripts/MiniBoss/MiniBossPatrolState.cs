@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Enemy/MiniBoss/PatrolState")]
-public class MiniBossDefaultState : State
+public class MiniBossPatrolState : State
 {
 
     [Header("Patrolling")]
@@ -11,9 +11,17 @@ public class MiniBossDefaultState : State
     public MinMaxFloat PatrollingDistance;
     public float FieldOfView;
     public float DirectionTimer;
+    public MinMaxFloat PausingTime;
+    public float RotationSpeed;
 
     private MiniBossController _controller;
     private Vector3 _direction;
+    private float _directionTimer;
+    private float _currentPause;
+    private bool _canMove;
+
+
+    
 
 
     [SerializeField]
@@ -25,17 +33,24 @@ public class MiniBossDefaultState : State
     {
         _controller = (MiniBossController)owner;
 
+
     }
     public override void Update()
     {
-        GetRandomPatrollingDirection();
+        PerformRotation();
         UpdatePatrolMovement();
-
     }
+
 
 
     public override void Enter()
     {
+        _directionTimer = DirectionTimer;
+        _directionTimer += Time.time;
+        _currentPause = Random.Range(PausingTime.Min, PausingTime.Max) + Time.time;
+        Debug.Log("Enter is running in patrol");
+
+
 
     }
 
@@ -44,22 +59,30 @@ public class MiniBossDefaultState : State
 
     }
 
-    private void GetRandomPatrollingDirection()
+    private void PerformRotation()
     {
-        if (Time.time < DirectionTimer)
+        
+        if(Time.time < _directionTimer)
         {
             return;
         }
-        float rotation = Random.Range(0, 360);
-        transform.rotation = Quaternion.AngleAxis(rotation, Vector3.up);
+        float rotation = 45f;
+        Quaternion rot = Quaternion.Euler(0, rotation, 0);
 
-        _direction = rotation * Vector3.forward;
+        CoroutineHandeler.instance.StartCoroutine(CoroutineHandeler.instance.RotateMiniBoss(rot, transform, RotationSpeed));
+        _direction = transform.forward * PatrollingDistance.Min;
+
+        _directionTimer += Time.time;
 
     }
 
     private void UpdatePatrolMovement()
     {
-        _controller.Character.Move(_direction * Random.Range(PatrollingDistance.Min, PatrollingDistance.Max) * PatrolSpeed * Time.deltaTime);
+        if (Time.time < _currentPause)
+        {
+            return;
+        }
+       
 
     }
     private void DetectCollision()

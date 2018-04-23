@@ -31,19 +31,21 @@ public class Controller : MonoBehaviour {
         }
     }
 
-    private void Update()
-    {
-        if (CurrentState != null)
-        {
-            CurrentState.Update();
-        }
-    }
+   
 
     private void FixedUpdate()
     {
         if (CurrentState != null)
         {
             CurrentState.FixedUpdate();
+        }
+    }
+
+    private void Update()
+    {
+        if (CurrentState != null)
+        {
+            CurrentState.Update();
         }
     }
 
