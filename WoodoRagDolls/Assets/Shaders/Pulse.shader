@@ -1,24 +1,17 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Yvette/Wave"
+﻿Shader "Yvette/Pulse"
 {
 	Properties
 	{
-		_MainTex ("Main Texture", 2D) = "white" {}
+		_MainTex ("Texture", 2D) = "white" {}
 		_Color("Main Color", COLOR) = (1,1,1,1)
-		_WaveVisibility("Wave Visibility", Range(0,1)) = 1
 		_WaveSpeed("Wave Speed", Range(0,100)) = 50
+
 	}
 	SubShader
 	{
-		//Blend One One
-		//ZWrite Off
-		//Cull Off
-
 		Tags 
 		{ 
 			"RenderType"="Opaque" 
-			"Queue"="Geometry"
 		}
 		LOD 100
 
@@ -44,16 +37,16 @@ Shader "Yvette/Wave"
 				float2 uv : TEXCOORD0;
 				float2 screenuv : TEXCOORD1;
 				UNITY_FOG_COORDS(1)
+				float3 normal : NORMAL;
 				float3 viewDir : TEXCOORD2;
 				float3 objectPos : TEXCOORD3;
-				float3 normal : NORMAL;
 				float4 vertex : SV_POSITION;
 				float depth : DEPTH;
+
 			};
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			float _WaveVisibility;
 			float _WaveSpeed;
 			
 			v2f vert (appdata v)
@@ -61,12 +54,11 @@ Shader "Yvette/Wave"
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				UNITY_TRANSFER_FOG(o,o.vertex);
 
 				o.screenuv = ((o.vertex.xy / o.vertex.w) + 1) / 2;
 				o.screenuv.y = 1 - o.screenuv.y;
 				o.depth = -(UnityObjectToViewPos(v.vertex)).z *_ProjectionParams.w;
-
-				// UNITY_MATRIX_MV
 
 				o.objectPos = v.vertex.xyz;
 				o.normal = UnityObjectToWorldNormal(v.normal);
@@ -83,37 +75,37 @@ Shader "Yvette/Wave"
 				return saturate(abs(frac(offset + t) * 2 - 1) + yOffset);
 			}
 
-			fixed4 texColor(v2f i, float rim)
+			fixed4 texColor(v2f i)
 			{
 				fixed4 mainTex = tex2D(_MainTex, i.uv);
 				mainTex.r *= triWave(-_Time.x * _WaveSpeed, i.objectPos.y, -0.7) * 5;
 
 				// I ended up saturaing the rim calculation because negative values caused weird artifacts
-				//mainTex.g *= saturate(rim) * (sin(_Time.z + mainTex.b * 5) + 1);
+				//mainTex.g *= saturate(pulse) * (sin(_Time.z + mainTex.b * 5) + 1);
 				return mainTex.r * _Color + mainTex.g * _Color;
 			}
 			
-			fixed4 frag(v2f i) : SV_Target
+			fixed4 frag (v2f i) : SV_Target
 			{
+				fixed4 mainTex = tex2D(_MainTex, i.uv);
+
 				float screenDepth = DecodeFloatRG(tex2D(_CameraDepthNormalsTexture, i.screenuv).zw);
 				float diff = screenDepth - i.depth;
 				float intersect = 0;
 
 				if (diff > 0)
 					intersect = 1 - smoothstep(0, _ProjectionParams.w * 0.5, diff);
+				// sample the texture
+				fixed4 col = tex2D(_MainTex, i.uv);
+				// apply fog
 
-				float rim = 4 - abs(dot(i.normal, normalize(i.viewDir))) * 2;
-				//float northPole = (i.objectPos.y - 0.45) * 20;
-				//float glow = max(intersect, rim);
-				//max(max(intersect, rim), northPole);
+				//float rim = 4 - abs(dot(i.normal, normalize(i.viewDir))) * 2;
 
-				//fixed4 glowColor = fixed4(lerp(_Color.rgb, fixed3(1, 1, 1), pow(glow, 4)), 1);
+				fixed4 pulse = mainTex.r * (i.objectPos.y + (-_Time.x * 100));
+				//texColor(i);
 
-				fixed4 hexes = texColor(i, rim);
-
-				//fixed4 col = _Color * _Color.a + glowColor * glow + hexes;
-				fixed4 col = _Color + hexes * _WaveVisibility;
-				return col;
+				UNITY_APPLY_FOG(i.fogCoord, col);
+				return col + _Color + pulse;
 			}
 			ENDCG
 		}
