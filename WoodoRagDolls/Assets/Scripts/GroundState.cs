@@ -52,18 +52,19 @@ public class GroundState : State {
 
 	public override void Update()
 	{
-        
-        RaycastHit[] hits =_controller.DetectHits();
-        if(hits.Length == 0)
+        RaycastHit[] hits = _controller.DetectHits();
+        if (hits.Length == 0)
         {
             _controller.TransitionTo<AirState>();
             return;
         }
 
+
     }
 
     public override void FixedUpdate(){
 
+        
         UpdateJump();
         UpdateMovement();
 
@@ -106,7 +107,7 @@ public class GroundState : State {
         {
             _controller.SetRigidYVelocity(0f);
 
-
+            Debug.Log("Jumping");
             Debug.Log(_controller.rb.velocity);
 
             _controller.rb.AddForce(0f, Jump * 2, 0f, ForceMode.VelocityChange);
@@ -114,7 +115,7 @@ public class GroundState : State {
             //_controller.rb.velocity = _controller.rb.velocity * Deacceleration;
 
             _controller.GetState<AirState>().CanCancelJump = true;
-            _controller.TransitionTo<AirState>();
+            //_controller.TransitionTo<AirState>();
         }
     }
 
