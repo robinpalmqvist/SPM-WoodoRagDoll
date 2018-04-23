@@ -13,18 +13,21 @@ public class CameraFollow : MonoBehaviour
     public MinMaxFloat Zoom;
     public float ZoomSmoothing;
 
-    public Material BlendMaterial;
+    public Material AlwaysVisible;
 
-   
 
+    [Header("Testing")]
+
+    public Vector3 ViewPortPoint;
     public GameObject TestPrefab;
+    public bool Respawn;
 
     //Variables for Centering Camera
     private Vector3 _centerPosition;
     private Vector3 _currentVelocityTowardsCenter;
-    
+
     private Camera _camera;
-   
+
     //Variables for ZoomControl
     private Bounds _bounds;
     private float _greatestDistance;
@@ -32,14 +35,16 @@ public class CameraFollow : MonoBehaviour
     Quaternion rotation;
     Quaternion cameraRot;
 
-   
 
-   
+
+
 
 
     // Use this for initialization
     void Start()
     {
+
+
         _camera = GetComponentInChildren<Camera>();
         _camera.orthographicSize = Zoom.Max;
 
@@ -51,15 +56,16 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = _centerPosition;
 
-        
+
         float y = transform.rotation.eulerAngles.y;
-        rotation = Quaternion.Euler(0, -y, 0);
-        cameraRot = Quaternion.Euler(_camera.transform.eulerAngles.x, 0, 0);
+        rotation = Quaternion.Euler(0, y, 0);
+        //Targets[0].position = rotation * Targets[0].position;
 
 
 
 
-        GameObject.Instantiate(TestPrefab, rotation * Vector3.one, Quaternion.identity, null);
+
+        //GameObject.Instantiate(TestPrefab, _camera.ViewportToWorldPoint(ViewPortPoint), Quaternion.identity, null);
 
 
 
@@ -67,24 +73,24 @@ public class CameraFollow : MonoBehaviour
 
     }
 
-    
+
     void Update()
     {
 
-        float y = transform.rotation.eulerAngles.y;
-        rotation = Quaternion.Euler(0, -y, 0);
+
         UpdateScreenBoundaries();
         _greatestDistance = FindGreatestDistanceBetweenPlayers();
-        BlendMaterial.SetFloat("_LerpValue", 1+ Mathf.Sin(Time.time));
-        
-       
-        
+
+
+
+
+
 
 
     }
     private void UpdateBounds()
     {
-        if(Targets.Length <= 1)
+        if (Targets.Length <= 1)
         {
             return;
         }
@@ -99,9 +105,32 @@ public class CameraFollow : MonoBehaviour
     private void UpdateScreenBoundaries()
     {
 
-        RaycastHit hit;
-        Vector3 direction = (Targets[0].position - _camera.transform.position).normalized;
-        Physics.Raycast(_camera.transform.position, direction, out hit, Mathf.Infinity);
+        /* RaycastHit hit;
+         Vector3 direction = (Targets[0].position - _camera.transform.position).normalized;
+         Physics.Raycast(_camera.transform.position, direction, out hit, Mathf.Infinity);
+         */
+        for (int i = 0; i < Targets.Length; i++)
+        {
+            Vector3 playerInViewPortCoords = _camera.WorldToViewportPoint(Targets[i].position);
+            float z = Mathf.Clamp01(playerInViewPortCoords.y);
+            float x = Mathf.Clamp01(playerInViewPortCoords.x);
+
+            Vector3 ClampedPos = _camera.ViewportToWorldPoint(new Vector3(x, z, playerInViewPortCoords.z));
+            Targets[i].position = new Vector3(ClampedPos.x, Targets[0].position.y, ClampedPos.z);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -114,7 +143,7 @@ public class CameraFollow : MonoBehaviour
     {
         UpdateMovement();
         UpdateZoom();
-        
+        UpdateScreenBoundaries();
 
     }
 
@@ -134,7 +163,7 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 FindCenterLocation()
     {
-        if(Targets.Length == 1)
+        if (Targets.Length == 1)
         {
             return Targets[0].position;
         }
@@ -154,14 +183,14 @@ public class CameraFollow : MonoBehaviour
 
     private float FindGreatestDistanceBetweenPlayers()
     {
-      
-         _bounds = new Bounds(transform.position, Vector3.zero);
+
+        _bounds = new Bounds(transform.position, Vector3.zero);
 
         foreach (Transform t in Targets)
         {
             _bounds.Encapsulate(t.position);
         }
-       
+
 
         return Mathf.Max(_bounds.size.x, _bounds.size.z);
     }

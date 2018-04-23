@@ -6,6 +6,7 @@ public class PlayerPalm : MonoBehaviour {
 
     public float Force = 4000;
     public Rigidbody leftHand, rightHand;
+    
     private bool attached = false;
     private float MoveSpeed = 100f;
 
@@ -15,10 +16,10 @@ public class PlayerPalm : MonoBehaviour {
     {
         get
         {
-            Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("RightStickHorizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("RightStickVertical"));
+            Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("RightStickHorizontal"), UnityEngine.Input.GetAxisRaw("RightStickVertical"), 0.0f );
 
-            float y = Camera.main.transform.rotation.eulerAngles.y;
-            input = Quaternion.Euler(0f, y, 0f) * input;
+            //float y = Camera.main.transform.rotation.eulerAngles.y;
+            //input = Quaternion.Euler(0f, y, 0f) * input;
             return input.normalized;
 
         }
@@ -52,6 +53,7 @@ public class PlayerPalm : MonoBehaviour {
     {
         if (Input.magnitude > Mathf.Epsilon)
         {
+            
             leftHand.AddForce(Input * MoveSpeed, ForceMode.Acceleration);
             rightHand.AddForce(Input * MoveSpeed, ForceMode.Acceleration);
         }
