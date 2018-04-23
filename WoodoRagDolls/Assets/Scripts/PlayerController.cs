@@ -41,7 +41,8 @@ public class PlayerController : Controller {
     {
         _collider = GetComponent<CapsuleCollider>();
 
-        rigidbodyparts = GameObject.Find("RagdollPrefab").GetComponentsInChildren<Rigidbody>();
+        rigidbodyparts = gameObject.transform.parent.GetComponentsInChildren<Rigidbody>();
+        //rigidbodyparts = GameObject.Find("RagdollPrefab").GetComponentsInChildren<Rigidbody>();
     }
 
     public RaycastHit[] DetectHits()
