@@ -1207,7 +1207,7 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: -10
+    min: -90
     max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
@@ -1411,7 +1411,7 @@ HingeJoint:
     freeSpin: 0
   m_UseLimits: 1
   m_Limits:
-    min: -10
+    min: -90
     max: 90
     bounciness: 0
     bounceMinVelocity: 0.2
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3a0db45c773494e86b7bd48f560037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Force: 1000
+  Force: 2000
   leftHand: {fileID: 54861875090050302}
   rightHand: {fileID: 54023402986272782}
   InputRequiredToMove: 0.3
@@ -1875,8 +1875,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _states:
   - {fileID: 11400000, guid: 21f786f29325e4a0a8f3c7e5beb72a88, type: 2}
+  - {fileID: 11400000, guid: 7aa4f3178b04e174a9c63380f324d410, type: 2}
   CurrentState: {fileID: 0}
   rb: {fileID: 54152091823541646}
+  CollisionLayers: -257
+  GroundCheckDistance: 0.05
   InputRequiredToMove: 0.3
 --- !u!136 &136565140020440078
 CapsuleCollider:
@@ -1890,7 +1893,7 @@ CapsuleCollider:
   m_Radius: 0.49999997
   m_Height: 6.11
   m_Direction: 1
-  m_Center: {x: 0, y: -1.17, z: 0}
+  m_Center: {x: 0, y: -1.15, z: 0}
 --- !u!137 &137247547013247046
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

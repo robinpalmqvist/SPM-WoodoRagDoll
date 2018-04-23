@@ -12,7 +12,7 @@ public class PlayerPalm : MonoBehaviour {
 
     [Range(0f, 1f)] public float InputRequiredToMove = 0.3f;
 
-    public Vector3 Input
+    public Vector3 _Input
     {
         get
         {
@@ -28,8 +28,10 @@ public class PlayerPalm : MonoBehaviour {
 
     private void OnCollisionEnter(Collision col)
     {
-        if (!attached)
+        Debug.Log("In method but not attached");
+        if (!attached && Input.GetAxis("XboxRightTrigger") > 0)
         {
+            Debug.Log("Should be attached");
             SpringJoint sp1 = leftHand.gameObject.AddComponent<SpringJoint>();
             sp1.connectedBody = col.rigidbody;
             sp1.spring = 12000;
@@ -51,11 +53,16 @@ public class PlayerPalm : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.magnitude > Mathf.Epsilon)
+
+        //if (Input.GetAxis("XboxRightTrigger") > 0)
+        //{
+        //    Debug.Log("serhserh");
+        //}
+        if (_Input.magnitude > Mathf.Epsilon)
         {
             
-            leftHand.AddForce(Input * MoveSpeed, ForceMode.Acceleration);
-            rightHand.AddForce(Input * MoveSpeed, ForceMode.Acceleration);
+            leftHand.AddForce(_Input * MoveSpeed, ForceMode.Acceleration);
+            rightHand.AddForce(_Input * MoveSpeed, ForceMode.Acceleration);
         }
     }
 }
