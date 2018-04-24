@@ -36,7 +36,7 @@ public class MiniBossPatrolState : State
     public override void Update()
     {
         PerformRotation();
-        Debug.Log(Vector3.Distance(transform.position, _direction));
+          Debug.Log(Vector3.Distance(transform.position, _direction));
         if(Vector3.Distance(transform.position, _direction) > Mathf.Epsilon) { 
         UpdatePatrolMovement();
 
