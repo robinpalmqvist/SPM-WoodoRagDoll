@@ -32,6 +32,7 @@ public class ProjectileScript : MonoBehaviour {
                 if (hit.collider != null)
                 {
                     Debug.Log("Impact point: " + hit.collider.gameObject.name);
+                    hit.rigidbody.AddForce(direction * 100, ForceMode.VelocityChange);
                     impact = true;
                 }
             }
