@@ -8,12 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633e97b7565486644837a30f39a745af, type: 3}
-  m_Name: AirState
+  m_Script: {fileID: 11500000, guid: e9fd5e70811dd4d7ab3ad735a8db34e3, type: 3}
+  m_Name: ChargeState
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
-  MoveSpeed: 0
-  AirDeacceleration: 0.1
-  MaxSpeed: 5
-  FastFall: {x: 0, y: -10, z: 0}
-  CanCancelJump: 0
+  target: {fileID: 0}
+  chargeUpTime: 3
+  chargeSpeed: 20
+  maxChargeDistance: 30
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
