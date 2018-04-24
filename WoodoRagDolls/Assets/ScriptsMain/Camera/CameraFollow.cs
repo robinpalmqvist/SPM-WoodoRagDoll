@@ -59,8 +59,7 @@ public class CameraFollow : MonoBehaviour
 
         
         _greatestDistance = FindGreatestDistanceBetweenPlayers();
-        Debug.Log(_centerPosition);
-
+        
 
 
 
@@ -70,10 +69,7 @@ public class CameraFollow : MonoBehaviour
     }
     private void UpdateBounds()
     {
-        if (Targets.Length <= 1)
-        {
-            return;
-        }
+        
         Bounds bounds = new Bounds();
 
         foreach (Transform t in Targets)
@@ -118,6 +114,7 @@ public class CameraFollow : MonoBehaviour
         _centerPosition = FindCenterLocation();
        
         transform.position = Vector3.SmoothDamp(transform.position, _centerPosition, ref _currentVelocityTowardsCenter, MovementSmoothing);
+        Debug.Log(_centerPosition);
 
 
     }
@@ -149,7 +146,10 @@ public class CameraFollow : MonoBehaviour
 
     private float FindGreatestDistanceBetweenPlayers()
     {
-
+        if(Targets.Length == 1)
+        {
+            return 0.0f;
+        }
         _bounds = new Bounds(transform.position, Vector3.zero);
 
         foreach (Transform t in Targets)
