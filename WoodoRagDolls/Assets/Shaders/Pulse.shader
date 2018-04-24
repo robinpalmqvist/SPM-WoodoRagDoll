@@ -101,7 +101,8 @@
 
 				//float rim = 4 - abs(dot(i.normal, normalize(i.viewDir))) * 2;
 
-				fixed4 pulse = mainTex.r * (i.objectPos.y + (-_Time.x * 100));
+				//fixed4 pulse = saturate(abs(frac(i.objectPos.y) + mainTex.r * (i.objectPos.y + (-_Time.x * 100))));
+				fixed4 pulse = saturate(abs(frac(i.objectPos.y + (-_Time.x * 100)) * 2 ) + (-0.7));
 				//texColor(i);
 
 				UNITY_APPLY_FOG(i.fogCoord, col);
