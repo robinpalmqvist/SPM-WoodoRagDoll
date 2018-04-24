@@ -114,7 +114,7 @@ public class CameraFollow : MonoBehaviour
         _centerPosition = FindCenterLocation();
        
         transform.position = Vector3.SmoothDamp(transform.position, _centerPosition, ref _currentVelocityTowardsCenter, MovementSmoothing);
-        Debug.Log(_centerPosition);
+        //Debug.Log(_centerPosition);
 
 
     }

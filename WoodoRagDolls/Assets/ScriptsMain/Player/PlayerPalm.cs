@@ -22,7 +22,7 @@ public class PlayerPalm : MonoBehaviour {
     {
         get
         {
-            Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("RightStickHorizontal"), UnityEngine.Input.GetAxisRaw("RightStickVertical") ,0.0f );
+            Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("RightStickHorizontal"), UnityEngine.Input.GetAxisRaw("RightStickVertical") , UnityEngine.Input.GetAxisRaw("RightStickVertical"));
 
             //float y = Camera.main.transform.rotation.eulerAngles.y;
             //input = Quaternion.Euler(0f, y, 0f) * input;
@@ -43,7 +43,8 @@ public class PlayerPalm : MonoBehaviour {
             HandJoint.spring = 5000;
             HandJoint.tolerance = 0;
             HandJoint.enablePreprocessing = false;
-            
+            AttachedHand.mass = 10;
+            AttachedHand.gameObject.transform.parent.GetComponent<Rigidbody>().mass = 10;           
             //HandJoint.connectedBody.gameObject.layer = 8;
             Attached = true;
 
@@ -69,6 +70,8 @@ public class PlayerPalm : MonoBehaviour {
         {
             Debug.Log("Release!!");
             Destroy(HandJoint);
+            AttachedHand.mass = 1;
+            AttachedHand.gameObject.transform.parent.GetComponent<Rigidbody>().mass = 2;
             //Destroy(spRight);
             Attached = false;
                 //rightAttached = false;

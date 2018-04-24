@@ -12,7 +12,12 @@ public class PlayerController : Controller {
     public int CollisionLayers = ~(1 << 8);
     public float GroundCheckDistance = 0.05f;
 
+    [HideInInspector]
+    public int PlayerNumber;
+
     private Rigidbody[] rigidbodyparts;
+    private string VerticalPlayer, HorizontalPlayer;
+    
 
     private CapsuleCollider _collider;
     
@@ -25,10 +30,12 @@ public class PlayerController : Controller {
         get
         {
             //Xbox
-            //Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("LeftStickHorizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("LeftStickVertical"));
+            Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("LeftStickHorizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("LeftStickVertical"));
+
+            //Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw(HorizontalPlayer), 0.0f, UnityEngine.Input.GetAxisRaw(VerticalPlayer));
 
             //Datorkontroll
-            Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
+            //Vector3 input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0.0f, UnityEngine.Input.GetAxisRaw("Vertical"));
 
             float y = Camera.main.transform.rotation.eulerAngles.y;
             input = Quaternion.Euler(0f, y, 0f) * input;
@@ -42,6 +49,8 @@ public class PlayerController : Controller {
         _collider = GetComponent<CapsuleCollider>();
 
         rigidbodyparts = gameObject.transform.parent.GetComponentsInChildren<Rigidbody>();
+        VerticalPlayer = "LeftStickVertical" + PlayerNumber;
+        HorizontalPlayer = "LeftStickHorizontal" + PlayerNumber;
         //rigidbodyparts = GameObject.Find("RagdollPrefab").GetComponentsInChildren<Rigidbody>();
     }
 

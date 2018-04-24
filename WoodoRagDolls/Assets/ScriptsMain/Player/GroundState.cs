@@ -108,7 +108,7 @@ public class GroundState : State {
             _controller.SetRigidYVelocity(0f);
 
             Debug.Log("Jumping");
-            Debug.Log(_controller.rb.velocity);
+            //Debug.Log(_controller.rb.velocity);
 
             _controller.rb.AddForce(0f, Jump * 2, 0f, ForceMode.VelocityChange);
 
