@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4300037301861804}
   - component: {fileID: 95274692400977878}
   m_Layer: 8
-  m_Name: RagdollPrefab
+  m_Name: RagdollPrefab 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
