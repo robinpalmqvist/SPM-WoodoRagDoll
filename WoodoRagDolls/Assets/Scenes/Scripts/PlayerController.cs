@@ -49,14 +49,15 @@ public class PlayerController : Controller {
     {
         //Eventuellt bör bättre uträkning göras för att hitta punkt på capsulecollider
         Vector3 colliderHeight = _collider.transform.position;
-        colliderHeight.y = colliderHeight.y - (_collider.height / 4);
+        //colliderHeight.y = colliderHeight.y - (_collider.height / 4);
 
         // för testning, visar raylängd
         Vector3 test = colliderHeight;
         test.y -= GroundCheckDistance;
-        
 
-        List<RaycastHit> groundHits = Physics.SphereCastAll(colliderHeight, _collider.radius, Vector3.down, GroundCheckDistance, CollisionLayers).ToList();
+        
+        List<RaycastHit> groundHits = Physics.RaycastAll(colliderHeight, Vector3.down, GroundCheckDistance, CollisionLayers).ToList();
+        //List<RaycastHit> groundHits = Physics.SphereCastAll(colliderHeight, _collider.radius, Vector3.down, GroundCheckDistance, CollisionLayers).ToList();
         //RaycastHit[] groundHits = Physics.CapsuleCastAll(colliderHeight, test, _collider.radius, Vector3.down, 50f, CollisionLayers);
 
         Debug.DrawLine(colliderHeight, test);
